@@ -1105,13 +1105,14 @@ h1, h2, h3, h4, h5, h6, figure {
   align-items: center;
   text-align: center; /* Center text content */
   padding: 20px;
-  background-color: #636363; /* Adjust based on your theme */
+  background-color: #585858; /* Adjust based on your theme */
   color: #fff;
 }
 
 #fh5co-footer h2 {
   margin-bottom: 15px;
   font-size: 24px;
+  color: #000000;
   font-weight: bold;
 }
 
@@ -1498,6 +1499,78 @@ input[type="text"] {
   background: #800080; /* Purple background */
   color: #ffffff; /* White text */
   border-color: #800080;
+}
+/* Style the buttons */
+.skill-btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin: 10px;
+  border: 2px solid #800080; /* Purple border */
+  background-color: #ffffff; /* White background */
+  color: #800080; /* Purple text */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Hover, focus, and active states for the button */
+.skill-btn:hover, 
+.skill-btn:focus, 
+.skill-btn:active {
+  background-color: #823786; /* Purple background */
+  color: #ffffff; /* White text */
+  border-color: #800080; /* Purple border */
+}
+/* Style for logos */
+/* Style for logos */
+.skill-logo {
+  width: 100px;  /* Adjust logo size */
+  height: 100px;
+  object-fit: cover;
+}
+
+/* Square container for the logo */
+.skill-box {
+  width: 110px;   /* Adjust container size */
+  height: 110px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;   /* Optional: rounds the corners */
+  border: 2px solid #ffffff;
+  flex-direction: column;  /* Align the logo and text vertically */
+  gap: 2px; /* Reduces the space between the logo and text */
+}
+
+.skill-box:hover {
+  border-color: red; /* Change border to red when hovered */
+}
+
+/* Style for text (white color and adjusted size) */
+.skill-box col-md-3 col-sm-6 col-xs-12 text-center frontend-tool
+.skill-box col-md-3 col-sm-6 col-xs-12 text-center backend-tool 
+.skill-box col-md-3 col-sm-6 col-xs-12 text-center tools {
+  color: rgb(255, 255, 255);  /* Change text color to white */
+  font-size: 100px;  /* Optional: Adjust font size */
+  margin: 0;  /* Remove any margin around text */
+}
+
+/* Initially hide all tools */
+.frontend-tool, .backend-tool, .tools-tool {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Highlight the relevant category */
+.frontend-tool.active, .backend-tool.active, .tools-tool.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Make skills visible when active */
+.frontend-tool, .backend-tool, .tools-tool {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */
