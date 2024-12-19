@@ -337,5 +337,73 @@
         document.getElementById("timeline-resume").style.display = "none";
         document.getElementById("timeline-education").style.display = "block";
     });
-	
+	// Smooth scrolling for footer navigation links
+document.addEventListener('DOMContentLoaded', function () {
+    const footerLinks = document.querySelectorAll('#fh5co-footer .nav a');
+
+    footerLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+document.getElementById('frontend-btn').addEventListener('click', function() {
+    toggleCategory('frontend');
+});
+document.getElementById('backend-btn').addEventListener('click', function() {
+    toggleCategory('backend');
+});
+document.getElementById('tools-btn').addEventListener('click', function() {
+    toggleCategory('tools');
+});
+
+function toggleCategory(category) {
+    // Remove active class from all buttons
+    const buttons = document.querySelectorAll('.skill-btn');
+    buttons.forEach(button => button.classList.remove('active'));
+    
+    // Add active class to the clicked button
+    document.getElementById(category + '-btn').classList.add('active');
+    
+    // Hide all tool categories
+    const categories = ['frontend', 'backend', 'tools'];
+    categories.forEach(cat => {
+        const elements = document.querySelectorAll('.' + cat + '-tool');
+        elements.forEach(element => {
+            element.classList.remove('active');
+        });
+    });
+
+    // Show the relevant tools
+    const activeElements = document.querySelectorAll('.' + category + '-tool');
+    activeElements.forEach(element => {
+        element.classList.add('active');
+    });
+}
+
+document.getElementById('skills-header').addEventListener('click', function() {
+    // Reset the header and all skills to default (you can reset skill styles here as well)
+    var skills = document.querySelectorAll('.skill');
+    skills.forEach(function(skill) {
+        skill.style.backgroundColor = '';  // Reset background color
+        skill.style.color = '';  // Reset text color
+    });
+
+    // Optionally reset the header color to the original state
+    this.style.backgroundColor = '';  // Reset background color on click
+    this.style.color = '';  // Reset text color on click
+});
+
+
 }());
