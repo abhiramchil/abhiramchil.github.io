@@ -4,6 +4,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
+            history.pushState(null, '', this.getAttribute('href'));
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'

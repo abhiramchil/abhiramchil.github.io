@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Governance Agent | Abhiram Chilakamarri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --ink: #172a3a;
+            --muted: #667884;
+            --paper: #f5f2ea;
+            --panel: #fffdf8;
+            --line: #d9ded8;
+            --teal: #087f78;
+            --teal-dark: #075b59;
+            --coral: #e86f51;
+            --amber: #b77723;
+            --shadow: 0 18px 45px rgba(23, 42, 58, .10);
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: Georgia, "Times New Roman", serif;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .35;
+            background-image: linear-gradient(rgba(8, 127, 120, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(8, 127, 120, .05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .shell { position: relative; width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 38px 0 70px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 72px; }
+        .brand { color: var(--teal); font: 700 12px Arial, sans-serif; letter-spacing: 2px; text-transform: uppercase; }
+        .back-link { color: var(--teal); font: 700 12px Arial, sans-serif; letter-spacing: .7px; text-decoration: none; text-transform: uppercase; }
+        .back-link:hover { color: var(--coral); }
+        .kicker { color: var(--teal); font: 700 12px Arial, sans-serif; letter-spacing: 2px; text-transform: uppercase; }
+        h1 { max-width: 720px; margin: 12px 0 16px; font-size: clamp(46px, 8vw, 86px); line-height: .94; font-weight: 500; letter-spacing: -2px; }
+        .intro { max-width: 620px; margin: 0 0 38px; color: var(--muted); font: 17px/1.55 Arial, sans-serif; }
+        .status { display: inline-flex; align-items: center; gap: 8px; padding: 10px 13px; border: 1px solid var(--line); background: rgba(255, 253, 248, .75); color: var(--muted); font: 700 12px Arial, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+        .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+        .scan-panel { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end; padding: 26px; background: var(--panel); border: 1px solid var(--line); box-shadow: var(--shadow); }
+        label { display: block; margin-bottom: 10px; color: var(--muted); font: 700 12px Arial, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+        input { width: 100%; padding: 16px 17px; border: 1px solid #bfcac6; background: #fff; color: var(--ink); font: 16px Arial, sans-serif; outline: none; }
+        input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(8, 127, 120, .13); }
+        button { min-height: 52px; padding: 0 24px; border: 0; background: var(--coral); color: #fff; cursor: pointer; font: 700 13px Arial, sans-serif; letter-spacing: .7px; text-transform: uppercase; }
+        button:hover { background: #cf573c; }
+        .hint { margin: 11px 0 0; color: var(--muted); font: 13px/1.4 Arial, sans-serif; }
+        .results { display: none; margin-top: 46px; animation: rise .45s ease both; }
+        .results-header { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+        h2 { margin: 0; font-size: 34px; font-weight: 500; }
+        .scanned-url { max-width: 480px; overflow: hidden; color: var(--muted); font: 13px Arial, sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+        .stat { min-height: 112px; padding: 18px; border-top: 3px solid var(--teal); background: var(--panel); }
+        .stat:nth-child(2) { border-color: var(--coral); }
+        .stat:nth-child(3) { border-color: var(--amber); }
+        .stat-value { display: block; margin-bottom: 9px; font-size: 32px; }
+        .stat-label { color: var(--muted); font: 700 11px Arial, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+        .finding { padding: 18px 20px; background: var(--panel); border: 1px solid var(--line); }
+        .finding-top { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 9px; }
+        .category { color: var(--teal); font: 700 11px Arial, sans-serif; letter-spacing: 1px; }
+        .technology { color: var(--amber); font: 700 13px Arial, sans-serif; }
+        .location { margin-bottom: 9px; color: var(--ink); font: 700 13px Arial, sans-serif; }
+        .evidence { margin: 0 0 8px; padding: 10px 12px; overflow-x: auto; background: #f1f4ef; color: #304c4c; font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
+        .explanation { margin: 0; color: var(--muted); font: 14px/1.45 Arial, sans-serif; }
+        @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 720px) {
+            .shell { width: min(100% - 26px, 1080px); padding-top: 26px; }
+            .topbar, .results-header { display: block; }
+            .back-link { display: inline-block; margin-top: 22px; }
+            .scan-panel { grid-template-columns: 1fr; }
+            button { width: 100%; }
+            .stats { grid-template-columns: 1fr; }
+            .scanned-url { margin-top: 8px; }
+            h1 { font-size: 54px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <nav class="topbar" aria-label="Page navigation">
+            <a class="brand" href="../">AC / Portfolio</a>
+            <a class="back-link" href="../#experience"><i class="fas fa-arrow-left"></i> Back to experience</a>
+        </nav>
+
+        <header>
+            <div class="kicker">U.S. Bank / AI governance intelligence</div>
+            <h1>See where AI lives in a repository.</h1>
+            <p class="intro">Paste a public GitHub URL. This demo maps AI-related signals into a review-ready profile with providers, models, features, and evidence.</p>
+            <div class="status">Interactive demo</div>
+        </header>
+
+        <form class="scan-panel" id="scan-form">
+            <div>
+                <label for="repository-url">GitHub repository URL</label>
+                <input id="repository-url" name="repository_url" type="url" required placeholder="https://github.com/owner/repository" autocomplete="url">
+                <p class="hint">The portfolio demo displays representative findings. The complete local scanner is available in the linked project repository.</p>
+            </div>
+            <button type="submit"><i class="fas fa-search"></i> Run scan</button>
+        </form>
+
+        <section class="results" id="results" aria-live="polite">
+            <div class="results-header">
+                <h2>Repository profile</h2>
+                <div class="scanned-url" id="scanned-url"></div>
+            </div>
+            <div class="stats">
+                <div class="stat"><span class="stat-value">YES</span><span class="stat-label">AI detected</span></div>
+                <div class="stat"><span class="stat-value">4</span><span class="stat-label">Providers</span></div>
+                <div class="stat"><span class="stat-value">7</span><span class="stat-label">Evidence points</span></div>
+            </div>
+            <article class="finding">
+                <div class="finding-top"><span class="category">MODEL_PROVIDER</span><span class="technology">OpenAI + vector search</span></div>
+                <div class="location">src/agent.py:42</div>
+                <pre class="evidence">from openai import OpenAI
+embeddings = client.embeddings.create(...)</pre>
+                <p class="explanation">AI integration, embedding generation, and agent-style retrieval patterns were detected in the repository.</p>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        const form = document.querySelector('#scan-form');
+        const input = document.querySelector('#repository-url');
+        const results = document.querySelector('#results');
+        const scannedUrl = document.querySelector('#scanned-url');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            scannedUrl.textContent = input.value.trim();
+            results.style.display = 'block';
+            results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+</html>

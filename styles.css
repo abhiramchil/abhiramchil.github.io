@@ -303,6 +303,7 @@ body {
 }
 
 .timeline-content {
+    position: relative;
     background: var(--white);
     padding: 1.5rem;
     border-radius: 10px;
@@ -326,6 +327,50 @@ body {
     font-size: 1.3rem;
     color: var(--text-dark);
     margin-bottom: 0.5rem;
+}
+
+.timeline-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.timeline-heading h3 {
+    margin-bottom: 0.5rem;
+}
+
+.demo-button,
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--primary-purple);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.demo-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-flex;
+    width: 2.1rem;
+    height: 2.1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--primary-purple);
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.demo-button:hover {
+    background: var(--primary-purple);
+    color: var(--white);
 }
 
 .timeline-content p {
@@ -467,6 +512,169 @@ body {
     background: var(--primary-orange);
 }
 
+/* Governance demo */
+.governance-demo {
+    background: #f3f1ff;
+}
+
+.demo-header,
+.governance-result-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.demo-kicker {
+    margin-bottom: 0.7rem;
+    color: var(--primary-purple);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.governance-demo .section-title {
+    margin-bottom: 0.8rem;
+    text-align: left;
+}
+
+.governance-demo .section-title::after {
+    margin: 0.8rem 0;
+}
+
+.demo-intro {
+    max-width: 650px;
+    color: var(--text-light);
+    font-size: 1.05rem;
+}
+
+.back-link {
+    padding-top: 0.4rem;
+}
+
+.governance-form {
+    max-width: 900px;
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.governance-form label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.governance-input-row {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.governance-input-row input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.9rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.governance-input-row button {
+    padding: 0.9rem 1.25rem;
+    border: 0;
+    border-radius: 6px;
+    background: var(--primary-purple);
+    color: var(--white);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.governance-input-row button:hover {
+    background: var(--primary-orange);
+}
+
+.governance-hint {
+    margin-top: 0.7rem;
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+.governance-results {
+    display: none;
+    max-width: 900px;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border-left: 4px solid var(--primary-orange);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.governance-result-heading h3 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+}
+
+.governance-result-heading span {
+    max-width: 50%;
+    overflow: hidden;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.governance-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.governance-stats div {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-top: 3px solid var(--primary-purple);
+}
+
+.governance-stats strong,
+.governance-stats span {
+    display: block;
+}
+
+.governance-stats strong {
+    color: var(--primary-purple);
+    font-size: 1.5rem;
+}
+
+.governance-stats span {
+    color: var(--text-light);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.governance-finding {
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+}
+
+.finding-category {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--primary-purple);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.governance-finding p {
+    margin-top: 0.4rem;
+    color: var(--text-light);
+}
+
 /* Contact Section */
 .contact-content {
     max-width: 800px;
@@ -587,6 +795,29 @@ body {
     .project-links {
         flex-direction: column;
         align-items: center;
+    }
+
+    .demo-header,
+    .governance-result-heading {
+        display: block;
+    }
+
+    .back-link {
+        margin-top: 1.5rem;
+    }
+
+    .governance-input-row {
+        flex-direction: column;
+    }
+
+    .governance-input-row button {
+        width: 100%;
+    }
+
+    .governance-result-heading span {
+        display: block;
+        max-width: 100%;
+        margin-top: 0.5rem;
     }
     
     .skills-grid {
